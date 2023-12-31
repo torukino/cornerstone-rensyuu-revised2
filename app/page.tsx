@@ -1,8 +1,4 @@
-import { ArrowRightIcon } from '@heroicons/react/24/outline'
-
 import NozomiLogo from '@/public/nozomi/nozomi-logo'
-import { Button } from '@/catalyst/button'
-import Link from 'next/link'
 import Nav from '@/app/Nav'
 
 export default function Page() {

@@ -1,4 +1,4 @@
-import '@/app/globals.css'
+// import '@/app/globals.css'
 import Nav from '@/app/Nav'
 import NozomiLogo from '@/public/nozomi/nozomi-logo'
 

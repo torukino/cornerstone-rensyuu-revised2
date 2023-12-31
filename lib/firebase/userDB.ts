@@ -1,6 +1,6 @@
 'use server'
 
-import { firestore } from '@/app/lib/firebase/firebaseConfig'
+import { firestore } from '@/lib/firebase/firebaseConfig'
 import { USER } from '@/types/user'
 
 export const getUsers = async (): Promise<USER[]> => {

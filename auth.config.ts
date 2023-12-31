@@ -6,18 +6,24 @@ export const authConfig = {
 	},
 	callbacks: {
 		authorized({ auth, request: { nextUrl } }) {
-			console.log('@@@@ in auth.config.ts @@@@')
-			auth && console.log('auth', JSON.stringify(auth))
-			const isLoggedIn = !!auth?.user
-			const isOnDashboard = nextUrl.pathname.startsWith('/dashboard')
+			console.log('authorized in auth.config.ts')
+			console.log('auth', JSON.stringify(auth))
+			console.log('nextUrl', nextUrl)
+			console.log('nextUrl.pathname', nextUrl.pathname)
+
+			const isLoggedIn: boolean = !!auth?.user
+			const isOnDashboard: boolean = nextUrl.pathname.startsWith('/dashboard')
+
 			console.log('isLoggedIn', isLoggedIn)
 			console.log('isOnDashboard', isOnDashboard)
+
 			if (isOnDashboard) {
 				if (isLoggedIn) return true
-				return false // Redirect unauthenticated users to login page
-			} else if (isLoggedIn) {
-				console.log('redirect前、dashboard', nextUrl)
-				return Response.redirect(new URL('/dashboard', nextUrl))
+				else return false // Redirect unauthenticated users to login page
+			} else {
+				if (isLoggedIn) {
+					return Response.redirect(new URL('/dashboard', nextUrl))
+				} else return false // Redirect unauthenticated users to login page
 			}
 			return true
 		},

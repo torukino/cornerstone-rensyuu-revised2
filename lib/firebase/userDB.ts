@@ -1,7 +1,8 @@
 'use server'
 
+import type { USER } from '@/types/user'
+
 import { firestore } from '@/lib/firebase/firebaseConfig'
-import { USER } from '@/types/user'
 
 export const getUsers = async (): Promise<USER[]> => {
 	const users: USER[] = []

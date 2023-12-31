@@ -1,5 +1,5 @@
-import NozomiLogo from '@/public/nozomi/nozomi-logo'
 import Nav from '@/app/Nav'
+import NozomiLogo from '@/public/nozomi/nozomi-logo'
 
 export default function Page() {
 	return (

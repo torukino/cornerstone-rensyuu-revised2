@@ -13,6 +13,14 @@ const Nav = () => {
 				dashboard <ArrowRightIcon className="ml-2 w-6" />
 			</Link>
 
+			<Link href="/dashboard/settings" className="h-10 primaryButton flex items-start">
+				設定 <ArrowRightIcon className="ml-2 w-6" />
+			</Link>
+
+			<Link href="/dashboard/users" className="h-10 primaryButton flex items-start">
+				ユーザ <ArrowRightIcon className="ml-2 w-6" />
+			</Link>
+
 			<Image
 				src="/nozomi/sensei.png"
 				width={200}

@@ -4,6 +4,7 @@ export default function Page() {
 	return (
 		<div>
 			<Button size="lg">root</Button>
+			<p>ルート</p>
 		</div>
 	)
 }

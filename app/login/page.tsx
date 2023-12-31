@@ -1,4 +1,4 @@
-import NozomiLogo from '@/public/nozomi/nozomi-logo'
+import NozomiLogo from '@/components/ui/nozomi-logo'
 import LoginForm from '@/ui/login-form'
 
 export default function LoginPage() {

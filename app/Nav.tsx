@@ -17,7 +17,7 @@ const Nav = () => {
 				dashboard <ArrowRightIcon className="ml-2 w-6" />
 			</Link>
 
-			<Link href="/dashboard/settings" className="h-10 primaryButton flex items-start">
+			<Link href="/settings" className="h-10 primaryButton flex items-start">
 				設定 <ArrowRightIcon className="ml-2 w-6" />
 			</Link>
 
@@ -25,7 +25,20 @@ const Nav = () => {
 				テスト <ArrowRightIcon className="ml-2 w-6" />
 			</Link>
 
-			<Link href="/dashboard/users" className="h-10 primaryButton flex items-start">
+			<Link href="/auth" className="h-10 primaryButton flex items-start">
+				auth <ArrowRightIcon className="ml-2 w-6" />
+			</Link>
+
+			<Link href="/auth/login" className="h-10 primaryButton flex items-start">
+				auth login
+				<ArrowRightIcon className="ml-2 w-6" />
+			</Link>
+
+			<Link href="/auth/register" className="h-10 primaryButton flex items-start">
+				auth register
+				<ArrowRightIcon className="ml-2 w-6" />
+			</Link>
+			<Link href="/users" className="h-10 primaryButton flex items-start">
 				ユーザ <ArrowRightIcon className="ml-2 w-6" />
 			</Link>
 

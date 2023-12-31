@@ -1,5 +1,5 @@
-import { getFirestore } from 'firebase-admin/firestore'
 import { getApps, initializeApp, cert } from 'firebase-admin/app'
+import { getFirestore } from 'firebase-admin/firestore'
 
 let a: any
 if (!getApps().length) {

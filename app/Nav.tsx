@@ -9,12 +9,20 @@ import { signOut } from '@/auth'
 const Nav = () => {
 	return (
 		<div className="h-full flex flex-row  justify-between md:flex-col md:items-around md:w-64">
+			<Link href="/" className="h-10 primaryButton flex items-start">
+				root <ArrowRightIcon className="ml-2 w-6" />
+			</Link>
+
 			<Link href="/dashboard" className="h-10 primaryButton flex items-start">
 				dashboard <ArrowRightIcon className="ml-2 w-6" />
 			</Link>
 
 			<Link href="/dashboard/settings" className="h-10 primaryButton flex items-start">
 				設定 <ArrowRightIcon className="ml-2 w-6" />
+			</Link>
+
+			<Link href="/test" className="h-10 primaryButton flex items-start">
+				テスト <ArrowRightIcon className="ml-2 w-6" />
 			</Link>
 
 			<Link href="/dashboard/users" className="h-10 primaryButton flex items-start">

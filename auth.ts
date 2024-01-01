@@ -1,9 +1,11 @@
+import bcrypt from 'bcrypt'
 import NextAuth from 'next-auth'
-import { authConfig } from './auth.config'
 import Credentials from 'next-auth/providers/credentials'
 import { z } from 'zod'
+
+import { authConfig } from './auth.config'
+
 import { getUsers } from '@/lib/firebase/userDB'
-import bcrypt from 'bcrypt'
 
 export const { auth, signIn, signOut } = NextAuth({
 	...authConfig,

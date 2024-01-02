@@ -21,7 +21,6 @@ export const authRoutes = ['/auth/login', '/auth/register']
  */
 
 export const apiAuthPrefix = '/api/auth'
-
 /**
  * The default redirect route after a successful login
  * @type {string}

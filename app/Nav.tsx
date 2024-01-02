@@ -4,7 +4,7 @@ import { ArrowRightIcon, PowerIcon } from '@heroicons/react/16/solid'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { signOut } from '@/auth'
+import { signOut } from '@/auth_old'
 
 const Nav = () => {
 	return (

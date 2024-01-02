@@ -1,32 +1,27 @@
+import bcrypt from 'bcryptjs'
+import Credentials from 'next-auth/providers/credentials'
+
 import type { NextAuthConfig } from 'next-auth'
 
-export const authConfig = {
-	pages: {
-		signIn: '/login',
-	},
-	callbacks: {
-		authorized({ auth, request: { nextUrl } }) {
-			console.log('authorized in auth.config.ts')
-			console.log('auth', JSON.stringify(auth))
-			console.log('nextUrl', nextUrl)
-			console.log('nextUrl.pathname', nextUrl.pathname)
+import { getUserByEmail } from '@/data/user'
+import { LoginSchema } from '@/schemas'
+export default {
+	providers: [
+		Credentials({
+			async authorize(credentials) {
+				const validatedFields = LoginSchema.safeParse(credentials)
+				if (validatedFields.success) {
+					const { email, password } = validatedFields.data
+					const user = await getUserByEmail(email)
+					if (!user || !user.password) return null
 
-			const isLoggedIn: boolean = !!auth?.user
-			const isOnDashboard: boolean = nextUrl.pathname.startsWith('/dashboard')
+					const passwordsMatch = await bcrypt.compare(password, user.password)
 
-			console.log('isLoggedIn', isLoggedIn)
-			console.log('isOnDashboard', isOnDashboard)
+					if (passwordsMatch) return user
 
-			if (isOnDashboard) {
-				if (isLoggedIn) return true
-				else return false // Redirect unauthenticated users to login page
-			} else {
-				if (isLoggedIn) {
-					return Response.redirect(new URL('/dashboard', nextUrl))
-				} else return false // Redirect unauthenticated users to login page
-			}
-			return true
-		},
-	},
-	providers: [], // Add providers with an empty array for now
+					return null
+				}
+			},
+		}),
+	],
 } satisfies NextAuthConfig

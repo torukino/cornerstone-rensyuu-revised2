@@ -13,7 +13,7 @@ interface HeaderProps {
 	label: string
 }
 
-const header = ({ label }: HeaderProps) => {
+export const Header = ({ label }: HeaderProps) => {
 	return (
 		<div className="w-full flex flex-col gap-y-4 items-center justify-center">
 			<h1 className={cn('text-3xl font-semibold', font.className)}>🔑 Auth</h1>
@@ -21,5 +21,3 @@ const header = ({ label }: HeaderProps) => {
 		</div>
 	)
 }
-
-export default header

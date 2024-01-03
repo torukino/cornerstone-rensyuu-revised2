@@ -54,7 +54,7 @@ export const RegisterForm = () => {
 								<FormItem>
 									<FormLabel>Name</FormLabel>
 									<FormControl>
-										<Input {...field} disabled={isPending} placeholder="john Doe" type="text" />
+										<Input {...field} disabled={isPending} placeholder="常 道江(John Doe)" type="text" />
 									</FormControl>
 									<FormMessage />
 								</FormItem>

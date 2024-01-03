@@ -14,7 +14,35 @@ export const {
 	signIn,
 	signOut,
 } = NextAuth({
+	pages: {
+		signIn: '/auth/login',
+		error: '/auth/lorro',
+	},
+	events: {
+		async linkAccount({ user }) {
+			console.log('linkAccount', user)
+			await db.user.update({
+				where: { id: user.id },
+				data: { emailVerified: new Date() },
+			})
+		},
+	},
 	callbacks: {
+		async signIn({ user, account }) {
+			console.log('signIn', { user, account })
+			if (account?.provider !== 'credentials') {
+				return true
+			}
+
+			const existingUser = await getUserById(user.id)
+
+			// prevent sign in without email verifiaction
+			if (!existingUser?.emailVerified) return false
+
+			//TODO add 2FA check
+			return true
+		},
+
 		async session({ session, token }) {
 			if (token.sub && session.user) {
 				session.user.id = token.sub
@@ -34,7 +62,7 @@ export const {
 			const existingUser = await getUserById(token.sub)
 
 			if (!existingUser) return token
-			console.log({ existingUser })
+			// console.log({ existingUser })
 			token.role = existingUser.role
 
 			return token

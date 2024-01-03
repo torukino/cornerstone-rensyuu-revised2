@@ -5,10 +5,10 @@ import type * as z from 'zod'
 
 import { signIn } from '@/auth'
 import { getUserByEmail } from '@/data/user'
+import { sendVerificationEmail } from '@/lib/mail'
 import { generateVerificationToken } from '@/lib/tokens'
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
 import { LoginSchema } from '@/schemas'
-import { sendVerificationEmail } from '@/lib/mail'
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
 	const validatedFileds = LoginSchema.safeParse(values)

@@ -119,6 +119,7 @@ export const LoginForm = () => {
 					<Button disabled={isPending} type="submit" className="w-full">
 						{showTwoFactor ? 'Confirm' : 'Login'}
 					</Button>
+					{showTwoFactor && <p className="text-sm"><strong>{form.getValues('email')}</strong>に送ったcodeを入力してください</p>}
 				</form>
 			</Form>
 		</CardWrapper>

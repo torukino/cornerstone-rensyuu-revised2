@@ -12,16 +12,15 @@ import { sendVerificationEmail, sendTwoFactorTokenEmail } from '@/lib/mail'
 import { generateVerificationToken, generateTwoFactorToken } from '@/lib/tokens'
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
 import { LoginSchema } from '@/schemas'
-
-
+const BUG = false
 export const login = async (values: z.infer<typeof LoginSchema>) => {
 	const validatedFileds = LoginSchema.safeParse(values)
-
+	BUG && console.log('validatedFileds in actions/login.tss', validatedFileds)
 	if (!validatedFileds.success) {
 		return { error: 'Invalid fields!' }
 	}
 	const { email, password, code } = validatedFileds.data
-
+	BUG && console.log('email, password, code (in actions/login.ts)', { email, password, code })
 	const existingUser = await getUserByEmail(email)
 
 	if (!existingUser || !existingUser.email || !existingUser.password) {
@@ -30,6 +29,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
 
 	if (!existingUser.emailVerified) {
 		const verificationToken = await generateVerificationToken(existingUser.email)
+		console.log('verificationToken in actions/login.ts', verificationToken)
 		const sendVerificatonEmail = await sendVerificationEmail(verificationToken.email, verificationToken.token)
 
 		return { success: 'Confirmation email sent!' }
@@ -38,9 +38,14 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
 	if (existingUser.isTwoFactorEnabled && existingUser.email) {
 		if (code) {
 			const twoFactorToken = await getTwoFactorTokenByEmail(existingUser.email)
+			BUG && console.log('twoFactorToken (in actions/login.ts)', twoFactorToken)
 			if (!twoFactorToken) return { error: 'Invalid code!' }
 
-			if (twoFactorToken.token) {
+			if (!twoFactorToken) {
+				return { error: 'Invalid code!' }
+			}
+
+			if (twoFactorToken.token !== code) {
 				return { error: 'Invalid code!' }
 			}
 
@@ -70,7 +75,7 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
 			})
 		} else {
 			const twoFactorToken = await generateTwoFactorToken(existingUser.email)
-			console.log('twoFactorToken', twoFactorToken)
+			BUG && console.log('twoFactorToken without code in else-block of actions/login.ts:', twoFactorToken)
 			twoFactorToken && (await sendTwoFactorTokenEmail(twoFactorToken.email, twoFactorToken.token))
 
 			return { twoFactor: true }

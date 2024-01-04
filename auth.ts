@@ -43,7 +43,10 @@ export const {
 			if (!existingUser?.emailVerified) return false
 
 			if (existingUser.isTwoFactorEnabled) {
+				console.log('2:existingUser.isTwoFactorEnabled', { existingUser })
 				const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(existingUser.id)
+
+				console.log('3:twoFactorConfirmation', { twoFactorConfirmation })
 
 				if (!twoFactorConfirmation) return false
 

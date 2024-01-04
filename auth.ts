@@ -65,10 +65,17 @@ export const {
 				session.user.id = token.sub
 			}
 
-			session.user.customField = 'anything'
-
 			if (token.role && session.user) {
 				session.user.role = token.role as UserRole
+			}
+
+			if (session.user) {
+				session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean
+			}
+			if (session.user) {
+				session.user.name = token.name
+				session.user.email = token.email
+				session.user.isOAuth = token.isOAuth as boolean
 			}
 
 			return session
@@ -80,7 +87,14 @@ export const {
 
 			if (!existingUser) return token
 			// console.log({ existingUser })
+
+			const existingAccount = await db.account.findFirst({ where: { userId: existingUser.id } })
+
+			token.isOAuth = !!existingAccount
+			token.name = existingUser.name
+			token.email = existingUser.email
 			token.role = existingUser.role
+			token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled
 
 			return token
 		},

@@ -19,7 +19,7 @@ export default function Home() {
 		from-sky-400 to-blue-800"
 		>
 			<div className="space-y-6 text-center">
-				<h1 className={cn('text-6xl font-semiboild text-white drop-shadow-md', font.className)}>🏥 Auth</h1>
+				<h1 className={cn('text-6xl font-semiboild text-white drop-shadow-md', font.className)}>🔐 Auth</h1>
 				<p className="text-xl text-white">A simple authentication service</p>
 				<div>
 					<LoginButton>

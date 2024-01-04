@@ -1,8 +1,11 @@
 // eslint-disable-next-line import/order
-import NextAuth from 'next-auth'
 import { PrismaAdapter } from '@auth/prisma-adapter'
+
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { UserRole } from '@prisma/client'
+import NextAuth from 'next-auth'
+
+import { getTwoFactorConfirmationByUserId } from './data/two-factor-confirmation'
 
 import authConfig from '@/auth.config'
 import { getUserById } from '@/data/user'
@@ -35,11 +38,22 @@ export const {
 			}
 
 			const existingUser = await getUserById(user.id)
-
+			console.log('1:', { existingUser })
 			// prevent sign in without email verifiaction
 			if (!existingUser?.emailVerified) return false
 
-			//TODO add 2FA check
+			if (existingUser.isTwoFactorEnabled) {
+				const twoFactorConfirmation = await getTwoFactorConfirmationByUserId(existingUser.id)
+
+				if (!twoFactorConfirmation) return false
+
+				await db.twoFactorConfirmation.delete({
+					where: {
+						id: twoFactorConfirmation.id,
+					},
+				})
+			}
+
 			return true
 		},
 

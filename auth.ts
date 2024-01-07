@@ -20,7 +20,7 @@ export const {
 } = NextAuth({
 	pages: {
 		signIn: '/auth/login',
-		error: '/auth/lorro',
+		error: '/auth/error',
 	},
 	events: {
 		async linkAccount({ user }) {
